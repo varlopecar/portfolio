@@ -1,0 +1,88 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+  direction?: "left" | "right";
+  underlineHeightRatio?: number;
+  underlinePaddingRatio?: number;
+}
+
+const {
+  label,
+  class: className = "",
+  direction = "right",
+  underlineHeightRatio = 0.1,
+  underlinePaddingRatio = 0.01,
+} = Astro.props;
+---
+
+<span class:list={["relative inline-block cursor-pointer", className]}>
+  <span>{label}</span>
+  <div
+    class:list={[
+      "absolute bg-current underline-animation",
+      direction === "right" ? "right-0" : "left-0",
+    ]}
+    style={{
+      height: `calc(${underlineHeightRatio} * 1em)`,
+      bottom: `calc(-${underlinePaddingRatio} * 1em)`,
+      width: "100%",
+    }}
+  >
+  </div>
+</span>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const underline = document.querySelector(".underline-animation");
+    if (!underline) return;
+
+    const direction = underline.classList.contains("right-0")
+      ? "right"
+      : "left";
+    let isAnimating = false;
+
+    const tl = gsap.timeline({ paused: true });
+    tl.to(underline, {
+      width: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.set(underline, {
+          left: direction === "right" ? "auto" : 0,
+          right: direction === "right" ? 0 : "auto",
+        });
+      },
+    }).to(underline, {
+      width: "100%",
+      duration: 0.5,
+      ease: "power2.out",
+      onComplete: () => {
+        gsap.set(underline, {
+          left: direction === "right" ? 0 : "auto",
+          right: direction === "right" ? "auto" : 0,
+        });
+      },
+    });
+
+    underline.parentElement?.addEventListener("mouseenter", () => {
+      if (isAnimating) return;
+      isAnimating = true;
+      tl.play().then(() => {
+        isAnimating = false;
+      });
+    });
+  });
+</script>
+
+<style>
+  .underline-animation {
+    width: 100%;
+    transform-origin: left;
+    transition: width 0.25s ease-in-out;
+  }
+
+  .underline-animation:hover {
+    width: 0;
+  }
+</style>
