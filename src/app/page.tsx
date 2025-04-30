@@ -1,103 +1,171 @@
-import Image from "next/image";
+import AnimatedGradient from "@/fancy/components/background/animated-gradient-with-svg"
+import TypewriterText from "@/fancy/components/text/typewriter"
+import ElasticLine from "@/fancy/components/physics/elastic-line"
+import Gravity from "@/fancy/components/physics/gravity"
+import UnderlineCenterText from "@/fancy/components/text/underline-center"
+import UnderlineComesInGoesOut from "@/fancy/components/text/underline-comes-in-goes-out"
+import { Navigation } from "@/components/Navigation"
+import { ProjectCard } from "@/components/ProjectCard"
+import { ContactForm } from "@/components/ContactForm"
+import { Footer } from "@/components/Footer"
+
+const projects = [
+  {
+    title: "Project 1",
+    description: "A modern web application built with Next.js and TypeScript",
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+    imageUrl: "/project1.jpg",
+    liveUrl: "https://project1.com",
+    githubUrl: "https://github.com/username/project1",
+  },
+  {
+    title: "Project 2",
+    description: "An e-commerce platform with real-time updates",
+    technologies: ["React", "Node.js", "MongoDB"],
+    imageUrl: "/project2.jpg",
+    liveUrl: "https://project2.com",
+    githubUrl: "https://github.com/username/project2",
+  },
+  {
+    title: "Project 3",
+    description: "A mobile-first responsive dashboard",
+    technologies: ["Vue.js", "Express", "PostgreSQL"],
+    imageUrl: "/project3.jpg",
+    liveUrl: "https://project3.com",
+    githubUrl: "https://github.com/username/project3",
+  },
+]
+
+const skills = [
+  { name: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { name: "Backend", items: ["Node.js", "Python", "PostgreSQL", "MongoDB"] },
+  { name: "DevOps", items: ["Docker", "AWS", "CI/CD", "Git"] },
+  { name: "Design", items: ["Figma", "Adobe XD", "UI/UX", "Responsive Design"] },
+]
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <>
+      <Navigation />
+      <main className="min-h-screen pt-16">
+        {/* Hero Section */}
+        <section className="relative h-[calc(100vh-4rem)] flex items-center justify-center">
+          <div className="absolute inset-0 -z-10">
+            <AnimatedGradient
+              colors={["#4F46E5", "#EC4899", "#8B5CF6"]}
+              speed={20}
+              blur="medium"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+          </div>
+          <div className="text-center z-10 space-y-6">
+            <TypewriterText
+              text="Hi, I&apos;m a Developer"
+              className="text-6xl font-bold text-primary mb-4"
+            />
+            <UnderlineCenterText
+              label="Building amazing experiences"
+              className="text-2xl text-primary-foreground"
+            />
+            <div className="flex justify-center gap-4 mt-8">
+              <a
+                href="#contact"
+                className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Get in Touch
+              </a>
+              <a
+                href="#projects"
+                className="bg-secondary text-secondary-foreground px-6 py-2 rounded-lg hover:opacity-90 transition-opacity"
+              >
+                View Projects
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <UnderlineComesInGoesOut
+              label="About Me"
+              className="text-4xl font-bold text-primary mb-8"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <p className="text-muted-foreground">
+                  I&apos;m a passionate developer focused on creating beautiful and functional web experiences.
+                  With expertise in modern web technologies, I bring ideas to life through clean code and
+                  thoughtful design.
+                </p>
+                <p className="text-muted-foreground">
+                  My journey in web development started with a curiosity for creating interactive experiences.
+                  Today, I specialize in building scalable applications that solve real-world problems.
+                </p>
+              </div>
+              <div className="relative h-[300px]">
+                <Gravity className="w-full h-full">
+                  <div className="w-full h-full bg-primary/20 rounded-lg" />
+                </Gravity>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="py-20 bg-secondary">
+          <div className="container mx-auto px-4">
+            <UnderlineComesInGoesOut
+              label="My Projects"
+              className="text-4xl font-bold text-secondary-foreground mb-8"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <ProjectCard key={index} {...project} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section id="skills" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <UnderlineComesInGoesOut
+              label="Skills"
+              className="text-4xl font-bold text-primary mb-8"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {skills.map((category, i) => (
+                <div key={i} className="space-y-4">
+                  <UnderlineCenterText
+                    label={category.name}
+                    className="text-xl font-bold text-primary-foreground"
+                  />
+                  <ul className="space-y-2">
+                    {category.items.map((skill, j) => (
+                      <li key={j} className="text-muted-foreground flex items-center">
+                        <ElasticLine className="w-2 h-[2px] mr-2" />
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-20 bg-accent">
+          <div className="container mx-auto px-4 text-center">
+            <UnderlineComesInGoesOut
+              label="Get in Touch"
+              className="text-4xl font-bold text-accent-foreground mb-8"
+            />
+            <ContactForm />
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      <Footer />
+    </>
+  )
 }
